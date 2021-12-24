@@ -10,7 +10,7 @@
     $sentencia = $bd->prepare ("DELETE FROM pokemon where numero = ?;");
     $resultado = $sentencia->execute([$numero]);
 
-    if(resultado === TRUE){
+    if($resultado === TRUE){
         header('Location: index.php?mensaje=eliminado');
     }else{
         header('Location: index.php?mensaje=error');
