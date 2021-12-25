@@ -1,18 +1,19 @@
 <?php include 'template/header.php' ?>
 
 <?php 
-
-    if(!isset($_GET['numero'])){
+    /*SI NO EXISTE id, ME MOSTRARA EL SIGUIENTE ERROR*/
+     
+    if(!isset($_GET['id'])){
         header('Location: index.php?mensaje=error');
         exit();
     }
     
     include_once 'model/conexion.php';
-    $numero = $_GET['numero'];
+    $id = $_GET['id'];
 
-    $sentencia = $bd-> prepare("select * from pokemon where numero = ?;");
-    $sentencia-> execute ([$numero]);
-    $pokemon = $sentencia->fetch(PDO::FETCH_OBJ);
+    $sentencia = $bd-> prepare("select * from persona where id = ?;");
+    $sentencia-> execute ([$id]);
+    $persona = $sentencia->fetch(PDO::FETCH_OBJ);
 
 ?>
 
@@ -23,29 +24,33 @@
                 <div class="card-header">
                     Editar datos
                 </div>
-                <form class="p-4" method="POST" action="editar.php">
+                <form class="p-4" method="POST" action="editarProceso.php">
                     <div class="mb-3">
-                    <label class="form-label">Numero: </label>
-                    <input type="number" class="form-control" name="txtNumero" required value="<?php echo $pokemon->numero; ?>">
+                    <label class="form-label">Nombre/s:: </label>
+                    <input type="text" class="form-control" name="txtNombre" required value="<?php echo $persona->nombre; ?>">
                     </div>
                     <div class="mb-3">
-                    <label class="form-label">Nombre: </label>
-                    <input type="text" class="form-control" name="txtNombre"  required value="<?php echo $pokemon->nombre; ?>">
+                    <label class="form-label">Apellido/s:: </label>
+                    <input type="text" class="form-control" name="txtApellido"  required value="<?php echo $persona->apellido; ?>">
                     </div>
                     <div class="mb-3">
-                    <label class="form-label">Tipo1: </label>
-                    <input type="text" class="form-control" name="txtTipo1"  required value="<?php echo $pokemon->tipo1; ?>">
+                    <label class="form-label">Dni: </label>
+                    <input type="text" class="form-control" name="txtDni"  required value="<?php echo $persona->dni; ?>">
                     </div>
                     <div class="mb-3">
-                    <label class="form-label">Tipo2: </label>
-                    <input type="text" class="form-control" name="txtTipo2"  required value="<?php echo $pokemon->tipo2; ?>">
+                    <label class="form-label">Telefono: </label>
+                    <input type="text" class="form-control" name="txtTelefono"  required value="<?php echo $persona->telefono; ?>">
                     </div>
                     <div class="mb-3">
-                    <label class="form-label">Evolucion: </label>
-                    <input type="text" class="form-control" name="txtEvolucion"  required value="<?php echo $pokemon->evolucion; ?>">
+                    <label class="form-label">Email: </label>
+                    <input type="text" class="form-control" name="txtEmail"  required value="<?php echo $persona->email; ?>">
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label">Historial Clinico: </label>
+                    <input type="text" class="form-control" name="txtHistorial"  required value="<?php echo $persona->historial; ?>">
                     </div>
                     <div class="d-grid">
-                    <input type="hidden" name="numero" value="<?php echo $pokemon->numero; ?>">
+                    <input type="hidden" name="id" value="<?php echo $persona->id; ?>">
                     <input type="submit" class="btn btn-primary" value="Editar">
                     </div>
                 </form>

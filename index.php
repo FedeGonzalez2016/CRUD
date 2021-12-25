@@ -3,15 +3,14 @@
 <?php
 
     include_once "model/conexion.php";
-    $sentencia = $bd -> query("select * from pokemon");
-    $pokemon = $sentencia -> fetchAll(PDO::FETCH_OBJ);
-    /*print_r($pokemon);*/
+    $sentencia = $bd -> query("select * from persona");
+    $persona = $sentencia -> fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-7">
+      <div class="col-md-9">
         <!--INICIO ALERTA-->
 
         <?php
@@ -19,7 +18,7 @@
             if(isset($_GET['mensaje']) and $_GET['mensaje'] == 'falta'){
         ?>
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Error</strong> Rellena todos los campos
+          <strong>Error!</strong> Rellena todos los campos
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         
@@ -54,7 +53,7 @@
         <?php
         if(isset($_GET['mensaje']) and $_GET['mensaje'] == 'editado'){
         ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Editado!</strong> Los datos fueron actualizados.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -78,37 +77,41 @@
         <!--FIN ALERTA-->
           <div class="card">
             <div class="card-header">
-              Lista Pokemon
+              Lista de Pacientes
             </div>
             <div class="p-4">
                   <!-- PARA QUE TODOS LOS ELEMENTOS DENTRO DE LA TABLE ESTEN ALINEADOS-->
                   <table class="table align-middle">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Tipo1</th>
-                        <th scope="col">Tipo2</th>
-                        <th scope="col">Evolucion</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre/s</th>
+                        <th scope="col">Apellido/s</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Historial Clinico</th>
                         <th scope="col" colspan="2">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
 
                       <?php
-                        foreach($pokemon as $dato){
+                        foreach($persona as $dato){
 
                         
                       ?>
 
                       <tr>
-                        <td scope="row"> <?php echo $dato->numero; ?></td>
+                        <td scope="row"> <?php echo $dato->id; ?></td>
                         <td><?php echo $dato->nombre; ?></td>
-                        <td><?php echo $dato->tipo1; ?></td>
-                        <td><?php echo $dato->tipo2; ?></td>
-                        <td><?php echo $dato->evolucion; ?></td>
-                        <td><a  class="text-success" href="editar.php?numero= <?php echo $dato->numero; ?> "> <i class="bi bi-pencil-square"></i> </a></td>
-                        <td><a onclick="return confirm('Desea eliminar definitivamente la informacion?');" class="text-danger" href="eliminar.php?numero= <?php echo $dato->numero; ?> "> <i class="bi bi-trash"></i> </a></td>
+                        <td><?php echo $dato->apellido; ?></td>
+                        <td><?php echo $dato->dni; ?></td>
+                        <td><?php echo $dato->telefono; ?></td>
+                        <td><?php echo $dato->email; ?></td>
+                        <td><?php echo $dato->historial; ?></td>
+                        <td><a  class="text-success" href="editar.php?id=<?php echo $dato->id; ?> "> <i class="bi bi-pencil-square"></i> </a></td>
+                        <td><a onclick="return confirm('Desea eliminar definitivamente la informacion?');" class="text-danger" href="eliminar.php?id= <?php echo $dato->id; ?> "> <i class="bi bi-trash"></i> </a></td>
                       </tr>
 
                       <?php
@@ -120,32 +123,37 @@
             </div>
           </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
           <div class="card">
               <div class="card-header">
-                  Ingresar datos
+                  Ingresar datos:
               </div>
               <form class="p-4" method="POST" action="registrar.php">
                 <div class="mb-3">
-                  <label class="form-label">Numero: </label>
-                  <input type="number" class="form-control" name="txtNumero" autofocus required>
+                  <label class="form-label">Nombre/s: </label>
+                  <input type="text" class="form-control" placeholder="Nombre" name="txtNombre" autofocus required>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Nombre: </label>
-                  <input type="text" class="form-control" name="txtNombre" autofocus required>
+                  <label class="form-label">Apellido/s: </label>
+                  <input type="text" class="form-control" placeholder="Apellido" name="txtApellido" autofocus required>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Tipo1: </label>
-                  <input type="text" class="form-control" name="txtTipo1" autofocus required>
+                  <label class="form-label">Dni: </label>
+                  <input type="number" class="form-control" placeholder="Dni" name="txtDni" autofocus required>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Tipo2: </label>
-                  <input type="text" class="form-control" name="txtTipo2" autofocus required>
+                  <label class="form-label">Telefono: </label>
+                  <input type="number" class="form-control" placeholder="Telefono" name="txtTelefono" autofocus required>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Evolucion: </label>
-                  <input type="text" class="form-control" name="txtEvolucion" autofocus required>
+                  <label class="form-label">Email: </label>
+                  <input type="text" class="form-control" placeholder="alguien@ejemplo.com" name="txtEmail" autofocus required>
                 </div>
+                <div class="mb-3">
+                  <label class="form-label">Historial Clinico: </label>
+                  <input type="textarea" class="form-control" placeholder="Contenido" name="txtHistorial" autofocus required>
+                </div>
+                <!-- PARA QUE EL BOTON OCUPE TODO EL TAMAÑO DEL FORMULARIO-->
                 <div class="d-grid">
                   <input type="hidden" name="oculto" value="1">
                   <input type="submit" class="btn btn-primary" value="Registrar">

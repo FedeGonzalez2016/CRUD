@@ -1,14 +1,14 @@
 <?php
-    if(!isset($_GET['numero'])){
+    if(!isset($_GET['id'])){
         header('Location: index.php?mensaje=error');
         exit();
     }
 
     include 'model/conexion.php';
-    $numero = $_GET['numero'];
+    $id = $_GET['id'];
 
-    $sentencia = $bd->prepare ("DELETE FROM pokemon where numero = ?;");
-    $resultado = $sentencia->execute([$numero]);
+    $sentencia = $bd->prepare ("DELETE FROM persona where id = ?;");
+    $resultado = $sentencia->execute([$id]);
 
     if($resultado === TRUE){
         header('Location: index.php?mensaje=eliminado');

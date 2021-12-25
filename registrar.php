@@ -5,21 +5,22 @@
 
     /*SI ESTA VACIO ALGUNO DE LOS SIGUIENTES CAMPOS DARA ERROR...ESTO ES UNA VALIDACION */    
 
-    if (empty($_POST["txtNumero"]) || empty($_POST["txtNombre"]) ||  empty($_POST["txtTipo1"]) ||  empty($_POST["txtTipo2"])  ||  empty($_POST["txtEvolucion"])  ||  empty($_POST["oculto"])) {
+    if (empty($_POST["oculto"]) || empty($_POST["txtNombre"]) || empty($_POST["txtApellido"]) ||  empty($_POST["txtDni"]) ||  empty($_POST["txtTelefono"])  ||  empty($_POST["txtEmail"])  ||  empty($_POST["txtHistorial"])) {
 
         header ('Location: index.php?mensaje=falta');
         exit();
     }
 
     include_once 'model/conexion.php';
-    $numero = $_POST["txtNumero"];
     $nombre = $_POST["txtNombre"];
-    $tipo1 = $_POST["txtTipo1"];
-    $tipo2 = $_POST["txtTipo2"];
-    $evolucion = $_POST["txtEvolucion"];
+    $apellido = $_POST["txtApellido"];
+    $dni = $_POST["txtDni"];
+    $telefono = $_POST["txtTelefono"];
+    $email = $_POST["txtEmail"];
+    $historial = $_POST["txtHistorial"];
 
-    $sentencia = $bd-> prepare ("INSERT INTO pokemon(numero,nombre,tipo1,tipo2,evolucion) VALUES (?,?,?);");
-    $resultado = $sentencia->execute ([$numero,$nombre,$tipo1,$tipo2,$evolucion]);
+    $sentencia = $bd-> prepare ("INSERT INTO persona(nombre,apellido,dni,telefono,email,historial) VALUES (?,?,?,?,?,?);");
+    $resultado = $sentencia->execute ([$nombre,$apellido,$dni,$telefono,$email,$historial]);
 
     if ($resultado === TRUE) {
         header('Location: index.php?mensaje=registrado');

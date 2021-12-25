@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <title>Pokedex</title>
+    <title>Sistema de Gestion</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,7 @@
         <div class="row"> <!-- FILA -->
           <div class="col-md"> <!-- COLUMNA-->
             <header class="py-3"> <!-- AGREGAMOS PADDING -->
-                <h3 class="text-center">Pokedex</h3>
+                <h3 class="text-center">Sistema de Gestion de Pacientes</h3>
             </header>
           </div>
         </div>

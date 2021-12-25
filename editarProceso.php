@@ -1,21 +1,23 @@
 <?php
 
     print_r($_POST);
-    if(!isset($_POST['numero'])){
+    if(!isset($_POST['id'])){
         header('Location: index.php?mensaje=error');
     }
 
     include 'model/conexion.php';
 
-    $numero = $_POST['txtNumero'];
+    $id = $_POST['id'];
     $nombre = $_POST['txtNombre'];
-    $tipo1 = $_POST['txtTipo1'];
-    $tipo2 = $_POST['txtTipo2'];
-    $evolucion = $_POST['txtEvolucion'];
+    $apellido = $_POST['txtApellido'];
+    $dni = $_POST['txtDni'];
+    $telefono = $_POST['txtTelefono'];
+    $email = $_POST['txtEmail'];
+    $historial = $_POST['txtHistorial'];
 
-    $sentencia = $bd->prepare ("UPDATE pokemon SET numero = ?, nombre = ?, tipo1 = ?, tipo2 = ?, evolucion = ? WHERE numero = ?;");
+    $sentencia = $bd->prepare ("UPDATE persona SET nombre = ?, apellido = ?, dni = ?, telefono = ?, email = ?,historial = ? WHERE id = ?;");
 
-    $resultado = $sentencia-> execute ([$numero, $nombre, $tipo1, $tipo2, $evolucion]);
+    $resultado = $sentencia-> execute ([$nombre,$apellido,$dni,$telefono,$email,$historial,$id]);
 
     if($resultado === TRUE){
         header('Location: index.php?mensaje=editado');
